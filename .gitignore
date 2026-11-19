@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.streamlit/secrets.toml
+.DS_Store
+*.zip
+
+# Original artifact bundle kept locally for provenance; models/ is the canonical copy.
+nids_models_ready/

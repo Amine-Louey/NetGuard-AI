@@ -1,0 +1,360 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-19T22:04:50.280624+00:00",
+  "metadata": {
+    "project": "NetGuard AI — Multi-class NIDS on NSL-KDD",
+    "selected_model": "Random Forest",
+    "dataset": "NSL-KDD (KDDTrain+_20Percent + KDDTest+)",
+    "split": "70% train / 15% validation / 15% test, stratified, random_state=42",
+    "python": "3.12.16",
+    "scikit_learn": "1.6.1",
+    "numpy": "2.2.6",
+    "pandas": "2.2.3",
+    "scripts": "scripts/generate_evaluation_report.py"
+  },
+  "dataset": {
+    "raw_train_rows": 25192,
+    "raw_test_rows": 22544,
+    "duplicates_removed": 0,
+    "train_size": 33415,
+    "validation_size": 7160,
+    "test_size": 7161,
+    "feature_count_raw": 41,
+    "feature_count_encoded": 118,
+    "classes": [
+      "DoS",
+      "Normal",
+      "Probe",
+      "R2L",
+      "U2R"
+    ]
+  },
+  "reproduction": {
+    "test_verified": true,
+    "validation_verified": true,
+    "random_forest_max_abs_difference_test": 0.0,
+    "random_forest_max_abs_difference_validation": 4.82703319981681e-07,
+    "neural_notes": []
+  },
+  "test_set": {
+    "size": 7161,
+    "class_support": {
+      "Normal": 3474,
+      "DoS": 2504,
+      "Probe": 707,
+      "R2L": 464,
+      "U2R": 12
+    },
+    "models": {
+      "Random Forest": {
+        "metrics": {
+          "accuracy": 0.9882697947214076,
+          "macro_f1": 0.9355841102217399,
+          "weighted_f1": 0.98828052828016,
+          "recall_r2l": 0.9568965517241379,
+          "recall_u2r": 0.6666666666666666,
+          "fpr": 0.0034202149835941185,
+          "latency_ms": 0.030879817217392823
+        },
+        "per_class": {
+          "DoS": {
+            "precision": 0.9984019176987615,
+            "recall": 0.9980031948881789,
+            "f1": 0.9982025164769323,
+            "support": 2504
+          },
+          "Normal": {
+            "precision": 0.9898873158046807,
+            "recall": 0.9861830742659758,
+            "f1": 0.9880317231434751,
+            "support": 3474
+          },
+          "Probe": {
+            "precision": 0.9900990099009901,
+            "recall": 0.9900990099009901,
+            "f1": 0.9900990099009901,
+            "support": 707
+          },
+          "R2L": {
+            "precision": 0.9230769230769231,
+            "recall": 0.9568965517241379,
+            "f1": 0.9396825396825397,
+            "support": 464
+          },
+          "U2R": {
+            "precision": 0.8888888888888888,
+            "recall": 0.6666666666666666,
+            "f1": 0.7619047619047619,
+            "support": 12
+          }
+        },
+        "macro_precision": 0.9580708110740488,
+        "macro_recall": 0.9195696994891899,
+        "weighted_precision": 0.9883872777541571,
+        "weighted_recall": 0.9882697947214076,
+        "confusion_matrix": [
+          [
+            2499,
+            5,
+            0,
+            0,
+            0
+          ],
+          [
+            4,
+            3426,
+            7,
+            37,
+            0
+          ],
+          [
+            0,
+            7,
+            700,
+            0,
+            0
+          ],
+          [
+            0,
+            19,
+            0,
+            444,
+            1
+          ],
+          [
+            0,
+            4,
+            0,
+            0,
+            8
+          ]
+        ],
+        "confusion_matrix_normalized": [
+          [
+            0.998003,
+            0.001997,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.001151,
+            0.986183,
+            0.002015,
+            0.010651,
+            0.0
+          ],
+          [
+            0.0,
+            0.009901,
+            0.990099,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.040948,
+            0.0,
+            0.956897,
+            0.002155
+          ],
+          [
+            0.0,
+            0.333333,
+            0.0,
+            0.0,
+            0.666667
+          ]
+        ],
+        "class_names": [
+          "DoS",
+          "Normal",
+          "Probe",
+          "R2L",
+          "U2R"
+        ],
+        "support": 7161,
+        "artifact": "rf_model.joblib",
+        "detail_available": true,
+        "source": "Test set — recomputed from frozen artifacts and verified against metrics_summary.json"
+      },
+      "MLP": {
+        "metrics": {
+          "accuracy": 0.943583298422008,
+          "macro_f1": 0.7657062251060001,
+          "weighted_f1": 0.9534138433499794,
+          "recall_r2l": 0.8836206896551724,
+          "recall_u2r": 0.9166666666666666,
+          "fpr": 0.012691860818608769,
+          "latency_ms": 0.14761855625237288
+        },
+        "detail_available": false,
+        "artifact": "mlp_model.keras",
+        "source": "Test set — metrics_summary.json (Week 3 export)"
+      },
+      "1D-CNN": {
+        "metrics": {
+          "accuracy": 0.8737606479541964,
+          "macro_f1": 0.6865415833681616,
+          "weighted_f1": 0.8942794299657413,
+          "recall_r2l": 0.8771551724137931,
+          "recall_u2r": 0.75,
+          "fpr": 0.028541192981591395,
+          "latency_ms": 0.24151878639267002
+        },
+        "detail_available": false,
+        "artifact": "cnn1d_model.keras",
+        "source": "Test set — metrics_summary.json (Week 3 export)"
+      }
+    }
+  },
+  "validation_set": {
+    "size": 7160,
+    "class_support": {
+      "Normal": 3474,
+      "DoS": 2504,
+      "Probe": 706,
+      "R2L": 464,
+      "U2R": 12
+    },
+    "models": {
+      "Random Forest": {
+        "metrics": {
+          "accuracy": 0.9899441340782122,
+          "macro_f1": 0.93399351729668,
+          "weighted_f1": 0.9898967354778743,
+          "recall_r2l": 0.9762931034482759,
+          "recall_u2r": 0.5833333333333334,
+          "fpr": 0.0029453504345632025
+        },
+        "per_class": {
+          "DoS": {
+            "precision": 0.9976028765481423,
+            "recall": 0.9972044728434505,
+            "f1": 0.9974036349111244,
+            "support": 2504
+          },
+          "Normal": {
+            "precision": 0.9916257580132832,
+            "recall": 0.9884858952216465,
+            "f1": 0.9900533371774543,
+            "support": 3474
+          },
+          "Probe": {
+            "precision": 0.9886524822695035,
+            "recall": 0.9872521246458924,
+            "f1": 0.9879518072289156,
+            "support": 706
+          },
+          "R2L": {
+            "precision": 0.9398340248962656,
+            "recall": 0.9762931034482759,
+            "f1": 0.9577167019027484,
+            "support": 464
+          },
+          "U2R": {
+            "precision": 1.0,
+            "recall": 0.5833333333333334,
+            "f1": 0.7368421052631579,
+            "support": 12
+          }
+        },
+        "macro_precision": 0.9835430283454389,
+        "macro_recall": 0.9065137858985197,
+        "weighted_precision": 0.9900806042246971,
+        "weighted_recall": 0.9899441340782122,
+        "confusion_matrix": [
+          [
+            2497,
+            5,
+            2,
+            0,
+            0
+          ],
+          [
+            5,
+            3434,
+            6,
+            29,
+            0
+          ],
+          [
+            1,
+            8,
+            697,
+            0,
+            0
+          ],
+          [
+            0,
+            11,
+            0,
+            453,
+            0
+          ],
+          [
+            0,
+            5,
+            0,
+            0,
+            7
+          ]
+        ],
+        "confusion_matrix_normalized": [
+          [
+            0.997204,
+            0.001997,
+            0.000799,
+            0.0,
+            0.0
+          ],
+          [
+            0.001439,
+            0.988486,
+            0.001727,
+            0.008348,
+            0.0
+          ],
+          [
+            0.001416,
+            0.011331,
+            0.987252,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.023707,
+            0.0,
+            0.976293,
+            0.0
+          ],
+          [
+            0.0,
+            0.416667,
+            0.0,
+            0.0,
+            0.583333
+          ]
+        ],
+        "class_names": [
+          "DoS",
+          "Normal",
+          "Probe",
+          "R2L",
+          "U2R"
+        ],
+        "support": 7160,
+        "detail_available": true,
+        "source": "Validation set — recomputed and compared with notebook output"
+      }
+    },
+    "note": "Les métriques de validation RF sont recalculées (non présentes dans metrics_summary.json)."
+  },
+  "limitations": [
+    "Les métriques portent sur le découpage 70/15/15 reconstruit à partir du notebook de la Semaine 3.",
+    "Le jeu de test NSL-KDD contient des attaques absentes du jeu d'entraînement ; les scores ne représentent pas un trafic réseau réel.",
+    "La latence dépend du matériel et n'est pas comparable entre machines.",
+    "Les probabilités du Random Forest sont des fréquences de votes, pas des probabilités calibrées."
+  ]
+}

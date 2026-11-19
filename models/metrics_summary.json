@@ -1,0 +1,37 @@
+{
+    "Accuracy": {
+        "Random Forest (Test)": 0.9882697947214076,
+        "MLP (Test)": 0.943583298422008,
+        "1D-CNN (Test)": 0.8737606479541964
+    },
+    "Macro F1": {
+        "Random Forest (Test)": 0.9355841102217399,
+        "MLP (Test)": 0.7657062251060001,
+        "1D-CNN (Test)": 0.6865415833681616
+    },
+    "Weighted F1": {
+        "Random Forest (Test)": 0.98828052828016,
+        "MLP (Test)": 0.9534138433499794,
+        "1D-CNN (Test)": 0.8942794299657413
+    },
+    "Recall R2L": {
+        "Random Forest (Test)": 0.9568965517241379,
+        "MLP (Test)": 0.8836206896551724,
+        "1D-CNN (Test)": 0.8771551724137931
+    },
+    "Recall U2R": {
+        "Random Forest (Test)": 0.6666666666666666,
+        "MLP (Test)": 0.9166666666666666,
+        "1D-CNN (Test)": 0.75
+    },
+    "FPR": {
+        "Random Forest (Test)": 0.0034202149835941185,
+        "MLP (Test)": 0.012691860818608769,
+        "1D-CNN (Test)": 0.028541192981591395
+    },
+    "Latency (ms)": {
+        "Random Forest (Test)": 0.030879817217392823,
+        "MLP (Test)": 0.14761855625237288,
+        "1D-CNN (Test)": 0.24151878639267002
+    }
+}
