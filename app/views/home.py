@@ -6,11 +6,7 @@ import streamlit as st
 
 from nids import config
 from theme import (
-    AMBER,
-    EMERALD,
-    INDIGO,
-    RED,
-    VIOLET,
+    CLASS_COLORS,
     class_chips,
     hero,
     kpi_cards,
@@ -28,13 +24,7 @@ _CLASS_DESCRIPTIONS = {
     "U2R": "Élévation de privilèges locale : Buffer Overflow, Rootkit, Perl…",
 }
 
-_CLASS_ACCENTS = {
-    "Normal": EMERALD,
-    "DoS": RED,
-    "Probe": AMBER,
-    "R2L": "#DB2777",
-    "U2R": VIOLET,
-}
+_CLASS_ACCENTS = CLASS_COLORS
 
 _STEPS = [
     (
@@ -125,7 +115,7 @@ def _comparison_block(report: dict) -> None:
                   <div class="big">{metrics['macro_f1'] * 100:.2f} %</div>
                   <p style="margin:.1rem 0 .55rem 0;">Macro F1 sur le test</p>
                   <p>{detail}</p>
-                  <p style="margin-top:.5rem;color:#64748B;">
+                  <p style="margin-top:.55rem;color:var(--ng-muted);">
                     Accuracy <strong>{metrics['accuracy'] * 100:.2f} %</strong> ·
                     Weighted F1 <strong>{metrics['weighted_f1'] * 100:.2f} %</strong>
                   </p>
@@ -206,7 +196,7 @@ def render() -> None:
     with left:
         panel(
             "🎯",
-            "Périmètre honnête",
+            "Périmètre d'analyse",
             "L'application analyse des <strong>flux fournis dans un fichier CSV</strong> au "
             "format NSL-KDD. Elle ne capture pas le trafic réseau en direct, ne remplace pas "
             "un IDS de production et ne prétend pas détecter des attaques en temps réel. "

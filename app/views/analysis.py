@@ -249,7 +249,7 @@ def render() -> None:
         <div class="ng-panel" style="padding:.85rem 1rem;">
           <div style="display:flex;flex-wrap:wrap;gap:1.6rem;align-items:center;">
             <div><div class="kicker">Fichier</div>
-              <div class="mono" style="font-size:.85rem;color:#0F172A;">{esc(uploaded.name)}</div></div>
+              <div class="mono" style="font-size:.88rem;color:var(--ng-text);">{esc(uploaded.name)}</div></div>
             <div><div class="kicker">Lignes</div>
               <div class="big" style="font-size:1rem;">{len(frame):,}</div></div>
             <div><div class="kicker">Colonnes</div>
