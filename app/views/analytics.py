@@ -14,6 +14,7 @@ from theme import (
     CLASS_COLORS,
     EMERALD,
     RED,
+    chart_palette,
     esc,
     kpi_cards,
     note,
@@ -67,6 +68,7 @@ def _distribution_chart(distribution: pd.DataFrame) -> None:
 def _normal_vs_attack_chart(normal: int, malicious: int) -> None:
     total = normal + malicious
     share = (malicious / total * 100) if total else 0.0
+    colors = chart_palette()
     figure = go.Figure(
         data=[
             go.Pie(
@@ -74,7 +76,7 @@ def _normal_vs_attack_chart(normal: int, malicious: int) -> None:
                 values=[normal, malicious],
                 hole=0.62,
                 marker_colors=[EMERALD, RED],
-                marker_line=dict(color="#FFFFFF", width=2),
+                marker_line=dict(color=colors["surface"], width=2),
                 textinfo="label+percent",
                 textfont=dict(size=12),
                 hovertemplate="%{label} : %{value} flux<extra></extra>",
@@ -82,11 +84,11 @@ def _normal_vs_attack_chart(normal: int, malicious: int) -> None:
         ]
     )
     figure.add_annotation(
-        text=f"<b>{share:.1f} %</b><br><span style='font-size:10px;color:#64748B'>malveillant</span>",
+        text=f"<b>{share:.1f} %</b><br><span style='font-size:11px;color:{colors['muted']}'>malveillant</span>",
         x=0.5,
         y=0.5,
         showarrow=False,
-        font=dict(size=16, color="#0F172A"),
+        font=dict(size=17, color=colors["text"], family="JetBrains Mono, monospace"),
     )
     figure.update_layout(title="Normal / Malveillant", margin=dict(t=48, b=8, l=8, r=8))
     render_figure(figure, height=330, legend=False)

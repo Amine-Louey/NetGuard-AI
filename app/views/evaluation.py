@@ -18,6 +18,7 @@ from theme import (
     EMERALD,
     INDIGO,
     RED,
+    chart_palette,
     esc,
     kpi_cards,
     note,
@@ -108,19 +109,26 @@ def _metric_cards(model: dict) -> None:
 
 def _comparison_frame(evaluation: dict) -> pd.DataFrame:
     frame = comparison_table(evaluation)
+    colors = chart_palette()
     format_map = {
         column: "{:.2%}"
         for column in ["Accuracy", "Macro F1", "Weighted F1", "Recall R2L", "Recall U2R", "FPR"]
     }
     format_map["Latence (ms)"] = "{:.4f}"
-    return frame.style.format(format_map, na_rep="—").apply(
-        lambda row: [
-            "background-color: #ECFDF5; font-weight: 600;"
-            if row["Modèle"] == "Random Forest"
-            else ""
-            for _ in row
-        ],
-        axis=1,
+    return (
+        frame.style.format(format_map, na_rep="—")
+        .set_properties(
+            **{"color": colors["text"], "background-color": colors["surface"]}
+        )
+        .apply(
+            lambda row: [
+                "background-color: rgba(16, 185, 129, .14); font-weight: 700;"
+                if row["Modèle"] == "Random Forest"
+                else ""
+                for _ in row
+            ],
+            axis=1,
+        )
     )
 
 
@@ -166,21 +174,17 @@ def _confusion_chart(evaluation: dict, split: str, model_name: str) -> None:
     )
     selected = matrix if view == "Effectifs" else normalised
     text_format = "d" if view == "Effectifs" else ".2f"
+    colors = chart_palette()
     figure = px.imshow(
         selected,
         text_auto=text_format,
-        color_continuous_scale=[
-            [0.0, "#F8FAFC"],
-            [0.35, "#DBEAFE"],
-            [0.7, "#93C5FD"],
-            [1.0, "#3B82F6"],
-        ],
+        color_continuous_scale=colors["heat_scale"],
         x=selected.columns,
         y=selected.index,
         aspect="auto",
         title="",
     )
-    figure.update_traces(textfont=dict(size=12, color="#0F172A"))
+    figure.update_traces(textfont=dict(size=12, color=colors["heat_text"]))
     figure.update_xaxes(title_text="Classe prédite")
     figure.update_yaxes(title_text="Classe réelle")
     figure.update_layout(
@@ -210,7 +214,7 @@ def _detail_section(evaluation: dict, split: str, model_name: str) -> None:
         note(
             f"Le détail par classe de <strong>{model_name}</strong> n'est pas disponible "
             "dans les résultats sauvegardés. Les métriques globales ci-dessus proviennent "
-            "de l'export de la Semaine 3 ; aucune valeur n'est reconstituée ici.",
+            "de l'export d'évaluation de référence ; aucune valeur n'est reconstituée ici.",
             warning=True,
         )
         return
@@ -221,9 +225,18 @@ def _detail_section(evaluation: dict, split: str, model_name: str) -> None:
         st.dataframe(
             per_class.style.format(
                 {"Precision": "{:.4f}", "Recall": "{:.4f}", "F1-score": "{:.4f}"}
-            ).apply(
+            )
+            .set_properties(
+                **{
+                    "color": chart_palette()["text"],
+                    "background-color": chart_palette()["surface"],
+                }
+            )
+            .apply(
                 lambda row: [
-                    "background-color: #EEF4FF; font-weight: 600;" if row["Classe"] == "U2R" else ""
+                    "background-color: rgba(139, 92, 246, .16); font-weight: 700;"
+                    if row["Classe"] == "U2R"
+                    else ""
                     for _ in row
                 ],
                 axis=1,
@@ -322,7 +335,7 @@ def render() -> None:
     page_header(
         "Model Evaluation",
         "Résultats expérimentaux sauvegardés du Random Forest, du MLP et du 1D-CNN.",
-        ["Semaine 3", "Test 7 161 flux", "Non recalculé sur les imports"],
+        ["Évaluation finale", "Test 7 161 flux", "Non recalculé sur les imports"],
     )
     try:
         evaluation = get_evaluation()
@@ -336,7 +349,7 @@ def render() -> None:
         f"Modèle sélectionné : <strong>{metadata['selected_model']}</strong> · "
         f"Jeu de test : {evaluation['test_set']['size']:,} flux · "
         f"Validation : {evaluation['validation_set']['size']:,} flux. "
-        "Ces métriques proviennent des expériences de la Semaine 3 ; elles ne sont pas "
+        "Ces métriques proviennent de l'évaluation expérimentale de référence ; elles ne sont pas "
         "recalculées à partir des fichiers importés par l'utilisateur."
     )
     note(
@@ -373,7 +386,7 @@ def render() -> None:
         st.caption(
             "FPR : taux moyen de faux positifs un-contre-tous, calculé à partir de la matrice "
             "de confusion. La latence dépend du matériel de mesure ; les trois valeurs "
-            "proviennent du même export de la Semaine 3."
+            "proviennent du même export de référence."
         )
         if reproduction.get("test_verified"):
             note(
@@ -422,6 +435,11 @@ def render() -> None:
                     "Macro F1": "{:.4f}",
                     "Recall R2L": "{:.4f}",
                     "Recall U2R": "{:.4f}",
+                }
+            ).set_properties(
+                **{
+                    "color": chart_palette()["text"],
+                    "background-color": chart_palette()["surface"],
                 }
             ),
             width="stretch",

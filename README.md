@@ -104,6 +104,14 @@ secondes au premier démarrage.
 Un fichier d'exemple est téléchargeable depuis la page Analyse
 (`data/samples/nsl_kdd_sample.csv`, 250 flux issus du jeu de test, sans étiquette).
 
+### Thèmes de l'interface
+
+Le sélecteur **Thème** de la barre latérale permet de passer immédiatement du mode
+sombre au mode clair. Les couleurs des composants communs, graphiques, tableaux et menus
+s'adaptent au thème choisi sur les quatre pages. La barre d'outils Streamlit est masquée
+pour retirer les commandes « Deploy » et « … » (`client.toolbarMode = "minimal"` dans
+`.streamlit/config.toml`).
+
 ### Format d'entrée
 
 - CSV séparé par des virgules, encodage UTF-8.
